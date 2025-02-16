@@ -9,7 +9,7 @@ SRC_FILES := main.v \
 						 or/or3.v or/or4.v or/or8.v or/or16.v
 
 SRC := $(addprefix $(SRC_DIR), $(SRC_FILES))
-OBJS := $(SRC_FILES:%.v=$(OBJ_DIR)%.vpp)
+OBJS := $(SRC_FILES:%.v=$(OBJ_DIR)%.vvp)
 JSON_RTLS := $(SRC_FILES:%.v=$(RTL_DIR)%.json)
 RTLS := $(JSON_RTLS:.json=.svg)
 
@@ -23,11 +23,11 @@ $(RTL_DIR)%.json: $(SRC_DIR)%.v
 $(RTL_DIR)%.svg: $(RTL_DIR)%.json
 	netlistsvg $< -o $@
 
-$(OBJ_DIR)%.vpp: $(SRC_DIR)%.v
+$(OBJ_DIR)%.vvp: $(SRC_DIR)%.v
 	iverilog -o $@ $<
 
 clean:
-	rm -rf $(OBJ_DIR)**/*.vpp
+	rm -rf $(OBJ_DIR)**/*.vvp
 	rm -rf $(RTL_DIR)**/*.svg
 
 re: clean all
