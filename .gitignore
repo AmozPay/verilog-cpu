@@ -1,0 +1,3 @@
+obj/**/*.vpp
+schema/**/*.json
+schema/**/*.svg
