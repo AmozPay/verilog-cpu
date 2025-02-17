@@ -3,10 +3,10 @@ OBJ_DIR := obj/
 RTL_DIR := schemas/
 
 SRC_FILES := main.v \
-						 mux/mux.v mux/mux4.v mux/mux8.v \
+						 mux/mux.v mux/mux4.v mux/mux8.v mux/muxn.v \
 						 dmux/dmux.v \
-						 and/and3.v and/and4.v and/and8.v and/and16.v \
-						 or/or3.v or/or4.v or/or8.v or/or16.v
+						 and/and3.v and/and4.v and/and8.v and/and16.v and/andn.v \
+						 or/or3.v or/or4.v or/or8.v or/or16.v or/orn.v
 
 SRC := $(addprefix $(SRC_DIR), $(SRC_FILES))
 OBJS := $(SRC_FILES:%.v=$(OBJ_DIR)%.vvp)
