@@ -3,7 +3,7 @@ OBJ_DIR := obj/
 RTL_DIR := schemas/
 
 SRC_FILES := main.v \
-						 mux/mux.v mux/mux4.v \
+						 mux/mux.v mux/mux4.v mux/mux8.v \
 						 dmux/dmux.v \
 						 and/and3.v and/and4.v and/and8.v and/and16.v \
 						 or/or3.v or/or4.v or/or8.v or/or16.v

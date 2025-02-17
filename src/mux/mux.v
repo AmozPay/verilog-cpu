@@ -1,4 +1,4 @@
-module mux(in1,in2,sel,R);
+module mux(R, in1, in2, sel);
   input in1,in2,sel;
   output R;
   wire not_sel;

@@ -5,7 +5,7 @@ module main();
   reg [3:0] in;
   wire out;
 
-  mux4 mux(in[0], in[1], in[2], in[3], sel[0], sel[1], out);
+  mux4 mux(out, in[0], in[1], in[2], in[3], sel[0], sel[1]);
   initial begin
     in[0] = 0;
     in[1] = 0;
@@ -16,7 +16,5 @@ module main();
     #10
     $display("Hello World %b", out);
   end
-
 endmodule
-
 // --------------------------------------------------------------

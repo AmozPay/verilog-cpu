@@ -1,7 +1,7 @@
 `include "src/or/or4.v"
 `include "src/and/and3.v"
 
-module mux4(in1, in2, in3, in4, sel1, sel2, out);
+module mux4(out, in1, in2, in3, in4, sel1, sel2);
   input in1, in2, in3, in4, sel1, sel2;
   output out;
   wire not_sel1;
