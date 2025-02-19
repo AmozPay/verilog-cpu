@@ -1,21 +1,33 @@
 SRC_DIR := src/
 OBJ_DIR := obj/
 RTL_DIR := schemas/
+TESTBENCH_DIR := testbench/
 
-SRC_FILES := main.v \
-						 mux/mux.v mux/mux4.v mux/mux8.v mux/muxn.v \
-						 dmux/dmux.v \
-						 and/and3.v and/and4.v and/and8.v and/and16.v and/andn.v \
-						 or/or3.v or/or4.v or/or8.v or/or16.v or/orn.v
+SRC_FILES := muxn.v \
+						 dmux.v \
+						 boolean/and_nway.v boolean/and_nbits.v boolean/or_nway.v boolean/or_nbits.v boolean/nand_nbits.v boolean/nand_nway.v boolean/xor_nbits.v
+
+TESTBENCH_FILES := $(SRC_FILES:.v=.tb.v)
 
 SRC := $(addprefix $(SRC_DIR), $(SRC_FILES))
+TESTBENCH := $(addprefix $(SRC_DIR), $(TESTBENCH_FILES))
 OBJS := $(SRC_FILES:%.v=$(OBJ_DIR)%.vvp)
+TESTBENCH_OBJS := $(TESTBENCH_FILES:%.v=$(TESTBENCH_DIR)%.vvp)
+VCDS = $(TESTBENCH_FILES:%.v=$(TESTBENCH_DIR)%.vcd)
 JSON_RTLS := $(SRC_FILES:%.v=$(RTL_DIR)%.json)
 RTLS := $(JSON_RTLS:.json=.svg)
 
 all: $(OBJS)
 
 docs: $(RTLS)
+
+run_testbench: $(VCDS)
+
+$(VCDS): $(TESTBENCH_DIR)%.vcd : $(TESTBENCH_DIR)%.vvp
+	@mkdir -p testbench_results
+	@(cd testbench_results && vvp ../$<)
+
+testbench: $(TESTBENCH_OBJS)
 
 $(RTL_DIR)%.json: $(SRC_DIR)%.v
 	yosys -q -p "read_verilog $<; hierarchy -check; proc; opt; write_json $@"
@@ -26,8 +38,16 @@ $(RTL_DIR)%.svg: $(RTL_DIR)%.json
 $(OBJ_DIR)%.vvp: $(SRC_DIR)%.v
 	iverilog -o $@ $<
 
+$(TESTBENCH_DIR)%.tb.vvp: $(SRC_DIR)%.tb.v
+	iverilog -o $@ $<
+
 clean:
-	rm -rf $(OBJ_DIR)**/*.vvp
-	rm -rf $(RTL_DIR)**/*.svg
+	rm -rf $(OBJ_DIR)*.vvp
+	rm -rf $(TESTBENCH_DIR)**/*.vvp
+	rm -rf $(RTL_DIR)*.svg
+	rm -rf $(TESTBENCH_DIR)*.vcd
+	rm -rf testbench_results/*.vcd
 
 re: clean all
+
+.PHONY: all docs testbench clean re

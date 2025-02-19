@@ -1,0 +1,39 @@
+#! /usr/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/usr/lib64/ivl/system.vpi";
+:vpi_module "/usr/lib64/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib64/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib64/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib64/ivl/va_math.vpi";
+S_0x55c20290ea80 .scope module, "and_nway" "and_nway" 2 2;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "out";
+    .port_info 1 /INPUT 2 "inputs";
+P_0x55c20290ec10 .param/l "NB_IN" 0 2 3, +C4<00000000000000000000000000000010>;
+v0x55c20291e1c0_0 .net *"_ivl_0", 0 0, L_0x55c20291e6e0;  1 drivers
+v0x55c20291e2c0_0 .net *"_ivl_8", 0 0, L_0x55c20291ead0;  1 drivers
+o0x7fe6b64810d8 .functor BUFZ 2, C4<zz>; HiZ drive
+v0x55c20291e3a0_0 .net "inputs", 1 0, o0x7fe6b64810d8;  0 drivers
+v0x55c20291e490_0 .net "intermediate", 1 0, L_0x55c20291e990;  1 drivers
+v0x55c20291e570_0 .net "out", 0 0, L_0x55c20291ec40;  1 drivers
+L_0x55c20291e7b0 .part L_0x55c20291e990, 0, 1;
+L_0x55c20291e8a0 .part o0x7fe6b64810d8, 1, 1;
+L_0x55c20291e990 .concat8 [ 1 1 0 0], L_0x55c20291ead0, L_0x55c20291e6e0;
+L_0x55c20291ead0 .part o0x7fe6b64810d8, 0, 1;
+L_0x55c20291ec40 .part L_0x55c20291e990, 1, 1;
+S_0x55c2028d4470 .scope generate, "and_chain[1]" "and_chain[1]" 2 11, 2 11 0, S_0x55c20290ea80;
+ .timescale 0 0;
+P_0x55c2028d4650 .param/l "i" 1 2 11, +C4<01>;
+L_0x55c20291e6e0 .functor AND 1, L_0x55c20291e7b0, L_0x55c20291e8a0, C4<1>, C4<1>;
+v0x55c2028d46f0_0 .net *"_ivl_0", 0 0, L_0x55c20291e7b0;  1 drivers
+v0x55c20291e0e0_0 .net *"_ivl_1", 0 0, L_0x55c20291e8a0;  1 drivers
+S_0x55c20290ecb0 .scope module, "tb_and_nbits" "tb_and_nbits" 3 3;
+ .timescale 0 0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "./src/boolean/and_nway.v";
+    "src/boolean/and_nbits.tb.v";
