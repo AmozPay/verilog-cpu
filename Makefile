@@ -3,9 +3,10 @@ OBJ_DIR := obj/
 RTL_DIR := schemas/
 TESTBENCH_DIR := testbench/
 
-SRC_FILES := muxn.v \
-						 dmux.v \
-						 boolean/and_nway.v boolean/and_nbits.v boolean/or_nway.v boolean/or_nbits.v boolean/nand_nbits.v boolean/nand_nway.v boolean/xor_nbits.v
+VFLAGS := -g2012
+
+SRC_FILES := multiplexing/mux.v multiplexing/dmux.v \
+						 boolean/p_and.v boolean/p_or.v boolean/p_nand.v boolean/p_xor.v
 
 TESTBENCH_FILES := $(SRC_FILES:.v=.tb.v)
 
@@ -25,24 +26,25 @@ run_testbench: $(VCDS)
 
 $(VCDS): $(TESTBENCH_DIR)%.vcd : $(TESTBENCH_DIR)%.vvp
 	@mkdir -p testbench_results
-	@(cd testbench_results && vvp ../$<)
+	(cd testbench_results && vvp ../$<)
 
 testbench: $(TESTBENCH_OBJS)
 
 $(RTL_DIR)%.json: $(SRC_DIR)%.v
 	yosys -q -p "read_verilog $<; hierarchy -check; proc; opt; write_json $@"
+	yosys -q -p "read_verilog $<; synth; write_json $@"
 
 $(RTL_DIR)%.svg: $(RTL_DIR)%.json
 	netlistsvg $< -o $@
 
 $(OBJ_DIR)%.vvp: $(SRC_DIR)%.v
-	iverilog -o $@ $<
+	iverilog $(VFLAGS) -o $@ $<
 
 $(TESTBENCH_DIR)%.tb.vvp: $(SRC_DIR)%.tb.v
-	iverilog -o $@ $<
+	iverilog $(VFLAGS) -o $@ $<
 
 clean:
-	rm -rf $(OBJ_DIR)*.vvp
+	rm -rf $(OBJ_DIR)**/*.vvp
 	rm -rf $(TESTBENCH_DIR)**/*.vvp
 	rm -rf $(RTL_DIR)*.svg
 	rm -rf $(TESTBENCH_DIR)*.vcd
