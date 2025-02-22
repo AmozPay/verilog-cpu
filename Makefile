@@ -6,7 +6,8 @@ TESTBENCH_DIR := testbench/
 VFLAGS := -g2012
 
 SRC_FILES := multiplexing/mux.v multiplexing/dmux.v \
-						 boolean/p_and.v boolean/p_or.v boolean/p_nand.v boolean/p_xor.v
+						 boolean/p_and.v boolean/p_or.v boolean/p_nand.v boolean/p_xor.v \
+						 alu.v
 
 TESTBENCH_FILES := $(SRC_FILES:.v=.tb.v)
 
@@ -46,8 +47,10 @@ $(TESTBENCH_DIR)%.tb.vvp: $(SRC_DIR)%.tb.v
 clean:
 	rm -rf $(OBJ_DIR)**/*.vvp
 	rm -rf $(TESTBENCH_DIR)**/*.vvp
-	rm -rf $(RTL_DIR)*.svg
-	rm -rf $(TESTBENCH_DIR)*.vcd
+	rm -rf $(TESTBENCH_DIR)*.vvp
+	rm -rf $(RTL_DIR)**/*.svg
+	rm -rf $(TESTBENCH_DIR)**/*.vcd
+	rm -rf testbench_results/**/*.vcd
 	rm -rf testbench_results/*.vcd
 
 re: clean all
