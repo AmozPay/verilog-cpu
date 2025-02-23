@@ -1,4 +1,4 @@
-`include "src/alu.v"
+`include "src/alu/add.v"
 
 module tb_half_adder;
   reg a, b;
@@ -7,7 +7,7 @@ module tb_half_adder;
   half_adder hadd(sum, carry, a, b);
 
   initial begin
-    $dumpfile("alu.vcd");
+    $dumpfile("add.vcd");
     $dumpvars(0, tb_half_adder);
     a = 0; b = 0; #10;
     a = 0; b = 1; #10;
@@ -23,7 +23,7 @@ module tb_full_adder;
   full_adder fadd(sum, carry, a, b, c);
 
   initial begin
-    $dumpfile("alu.vcd");
+    $dumpfile("add.vcd");
     $dumpvars(0, tb_full_adder);
     a = 0; b = 0; c = 0; #10;
     a = 0; b = 0; c = 1; #10;
@@ -37,17 +37,17 @@ module tb_full_adder;
   end
 endmodule
 
-module tb_add16;
+module tb_add;
   wire carry;
   wire [15:0] sum;
   reg [15:0] a;
   reg [15:0] b;
 
-  add16 add(carry, sum, a, b);
+  add add(carry, sum, a, b);
 
   initial begin
-    $dumpfile("alu.vcd");
-    $dumpvars(0, tb_add16);
+    $dumpfile("add.vcd");
+    $dumpvars(0, tb_add);
 
     a = 5; b = 5; #10;
     a = 1; b = 0; #10;
