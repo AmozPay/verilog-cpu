@@ -7,7 +7,8 @@ VFLAGS := -g2012
 
 SRC_FILES := multiplexing/mux.v multiplexing/dmux.v \
 						 boolean/p_and.v boolean/p_or.v boolean/p_nand.v boolean/p_xor.v \
-						 alu/alu.v alu/add.v
+						 alu/alu.v alu/add.v \
+						 sequential/flipflop.v sequential/ram.v
 
 TESTBENCH_FILES := $(SRC_FILES:.v=.tb.v)
 

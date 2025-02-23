@@ -30,3 +30,20 @@ module p_and
     end
   endgenerate
 endmodule
+
+
+module and_n #(parameter NB_INS = 2) (
+  output out,
+  input [NB_INS-1:0] ins
+);
+  wire [NB_INS - 1:0] intermediate;
+  genvar i;
+
+  assign intermediate[0] = ins[0];
+  generate
+    for (i = 1; i < NB_INS; i = i + 1) begin: iter_over_ins
+        assign intermediate[i] = intermediate[i - 1] & ins[i];
+    end
+  endgenerate
+  assign out = intermediate[NB_INS-1];
+endmodule

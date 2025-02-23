@@ -1,4 +1,4 @@
-
+`include "src/boolean/p_and.v"
 
 // A demultiplexer with n selector pins and 2 ^ n output pins
 module dmux2
@@ -165,4 +165,25 @@ module dmux16
     {sel[2], sel[1], sel[0]}
   );
 
+endmodule
+
+module dmux1bit
+#(parameter NB_SEL = 1)
+(
+  output [2 ** NB_SEL - 1:0] outputs,
+  input [NB_SEL - 1:0] sel,
+  input in
+);
+
+  wire [NB_SEL:0] and_inputs [2 ** NB_SEL -1:0];
+  genvar i, j;
+  generate
+      for (i = 0; i < 2 ** NB_SEL; i = i + 1) begin
+        assign and_inputs[i][0] = in;
+        for (j = 0; j < NB_SEL; j = j + 1) begin
+          assign and_inputs[i][j + 1] = 1 & (i >> j) ? sel[j] : ~sel[j];
+        end
+        and_n #(.NB_INS(NB_SEL + 1)) and0(outputs[i], and_inputs[i]);
+      end
+  endgenerate
 endmodule

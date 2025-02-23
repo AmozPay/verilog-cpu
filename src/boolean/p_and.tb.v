@@ -43,3 +43,26 @@ module tb_p_and;
   end
 
 endmodule
+
+module tb_and_n;
+  parameter NB_INS = 4;
+  reg [NB_INS-1:0] ins;
+  wire out;
+  and_n #(.NB_INS(NB_INS)) and0(out, ins);
+
+
+  integer i;
+  initial begin
+    $dumpfile("p_and.vcd");
+    $dumpvars(0, tb_and_n);
+
+    for (i = 0; i < NB_INS; i = i + 1) begin
+        ins[i] = 0;
+    end
+    #10;
+    for (i = 0; i < NB_INS; i = i + 1) begin
+        ins[i] = 1;
+        #10;
+    end
+  end
+endmodule

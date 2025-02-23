@@ -10,7 +10,7 @@ module tb_dmux2;
 
   integer i;
   initial begin
-    $dumpfile("dmux2.vcd");
+    $dumpfile("dmux.vcd");
     $dumpvars(0, tb_dmux2);
 
     for (i = 0; i < 2; i = i + 1) begin
@@ -33,7 +33,7 @@ module tb_dmux4;
 
   integer i;
   initial begin
-    $dumpfile("dmux4.vcd");
+    $dumpfile("dmux.vcd");
     $dumpvars(0, tb_dmux4);
 
     for (i = 0; i < 4; i = i + 1) begin
@@ -59,7 +59,7 @@ module tb_dmux8;
 
   integer i;
   initial begin
-    $dumpfile("dmux8.vcd");
+    $dumpfile("dmux.vcd");
     $dumpvars(0, tb_dmux8);
 
     for (i = 0; i < 8; i = i + 1) begin
@@ -87,7 +87,7 @@ module tb_dmux16;
 
   integer i;
   initial begin
-    $dumpfile("dmux16.vcd");
+    $dumpfile("dmux.vcd");
     $dumpvars(0, tb_dmux16);
 
     for (i = 0; i < 16; i = i + 1) begin
@@ -96,5 +96,26 @@ module tb_dmux16;
       #10;
     end
     #10;
+  end
+endmodule
+
+module tb_dmux1bit;
+  parameter NB_SEL = 3;
+
+  reg in;
+  reg [NB_SEL-1:0] sel;
+  wire [2 ** NB_SEL-1:0] outputs;
+
+  dmux1bit #(.NB_SEL(NB_SEL)) dmux0(outputs, sel, in);
+
+  integer i;
+  initial begin
+    $dumpfile("dmux.vcd");
+    $dumpvars(0, tb_dmux1bit);
+    in = 1; #10;
+    for (i = 0; i < 2 ** NB_SEL; i = i + 1) begin
+      sel = i;
+      #10;
+    end
   end
 endmodule
