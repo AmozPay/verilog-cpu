@@ -58,3 +58,19 @@ module tb_add;
     a = 65535; b = 65535; #10;
   end
 endmodule
+
+module tb_inc;
+  parameter BUS_WIDTH = 16;
+  reg [BUS_WIDTH - 1:0] in;
+  wire [BUS_WIDTH - 1:0] out;
+
+  inc #(.BUS_WIDTH(BUS_WIDTH)) inc(out, in);
+
+  initial begin
+    $dumpfile("add.vcd");
+    $dumpvars(0, tb_inc);
+    in = 0; #10;
+    in = 5; #10;
+  end
+
+endmodule
