@@ -1,4 +1,4 @@
-`include "src/alu.v"
+`include "src/alu/alu.v"
 
 
 module tb_alu;
@@ -32,6 +32,7 @@ module tb_alu;
     f = 1; #10; // should do x + y = 4 or 0b100;
     no = 1; #10; // should negate output = 0b1111111111111011 or 0xfffb;
     nx = 1; ny = 1; f = 0; no = 0; #10; // should do 0b1111111111111110 & 0b1111111111111101 = 0b1111111111111100 or 0xfffc
-    // TODO: finish testing alu
+    x = 2; y = -1; f = 1; no = 0; nx = 0; ny = 0; zx = 0; zy = 0; #10;
+    x = 50; y = -40; #10;
   end
 endmodule
