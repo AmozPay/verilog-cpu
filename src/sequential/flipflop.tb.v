@@ -34,7 +34,7 @@ module tb_d_flipflop;
   initial begin
     $dumpfile("flipflop.vcd");
     $dumpvars(0, tb_d_flipflop);
-    clock = 0;
+    clock = 1;
     in = 0; load = 0; #10;
     load = 1; #10;
     load = 0; #10;

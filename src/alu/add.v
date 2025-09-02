@@ -28,7 +28,7 @@ endmodule
 module inc
 #(parameter BUS_WIDTH = 16)
 (output [BUS_WIDTH-1:0] out, input [BUS_WIDTH-1:0] in);
-  wire one = 1;
+  wire [BUS_WIDTH-1:0] one = 1;
   wire carry;
 
   add #(.BUS_WIDTH(BUS_WIDTH)) add(carry, out, in, one);

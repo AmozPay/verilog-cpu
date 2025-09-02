@@ -47,21 +47,21 @@ module mux4
     out_mux0,
     in0,
     in1,
-    sel[1]
+    sel[0]
   );
 
   mux2 #(.BUS_WIDTH(BUS_WIDTH)) mux1(
     out_mux1,
     in2,
     in3,
-    sel[1]
+    sel[0]
   );
 
   mux2 #(.BUS_WIDTH(BUS_WIDTH)) mux2(
     out,
     out_mux0,
     out_mux1,
-    sel[0]
+    sel[1]
   );
 
 
@@ -91,7 +91,7 @@ module mux8
     in1,
     in2,
     in3,
-    {sel[2], sel[1]}
+    {sel[1], sel[0]}
   );
 
   mux4 #(.BUS_WIDTH(BUS_WIDTH)) mux1(
@@ -100,14 +100,14 @@ module mux8
     in5,
     in6,
     in7,
-    {sel[2], sel[1]}
+    {sel[1], sel[0]}
   );
 
   mux2 #(.BUS_WIDTH(BUS_WIDTH)) mux2(
     out,
     out_mux0,
     out_mux1,
-    sel[0]
+    sel[2]
   );
 endmodule
 
@@ -149,7 +149,7 @@ module mux16
     in5,
     in6,
     in7,
-    {sel[3], sel[2], sel[1]}
+    {sel[2], sel[1], sel[0]}
   );
 
   mux8 #(.BUS_WIDTH(BUS_WIDTH)) mux1(
@@ -162,14 +162,14 @@ module mux16
     in13,
     in14,
     in15,
-    {sel[3], sel[2], sel[1]}
+    {sel[2], sel[1], sel[0]}
   );
 
   mux2 #(.BUS_WIDTH(BUS_WIDTH)) mux2(
     out,
     out_mux0,
     out_mux1,
-    sel[0]
+    sel[3]
   );
 endmodule
 
